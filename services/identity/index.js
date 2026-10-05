@@ -1,10 +1,12 @@
 import express from 'express'
 import sql from './db.js'
+import authRoutes from './routes/auth.js'
 
 const app = express()
 
 // Permite leer el cuerpo de las peticiones en formato JSON (registro y login)
 app.use(express.json())
+app.use('/auth', authRoutes)
 
 app.get('/health', async (req, res) => {
   try {
