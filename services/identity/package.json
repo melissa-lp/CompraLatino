@@ -1,0 +1,17 @@
+{
+  "name": "identity",
+  "version": "1.0.0",
+  "description": "Servicio de Identidad y Acceso de CompraLatino (registro, login, JWT)",
+  "main": "index.js",
+  "scripts": {
+    "test:db": "node --env-file=.env test-db.js",
+    "db:migrate": "node --env-file=.env migrate.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "postgres": "^3.4.9"
+  }
+}
