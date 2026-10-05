@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test:db": "node --env-file=.env test-db.js",
-    "db:migrate": "node --env-file=.env migrate.js"
+    "db:migrate": "node --env-file=.env migrate.js",
+    "start": "node --env-file=.env index.js",
+    "dev": "node --watch --env-file=.env index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "express": "^5.2.1",
     "postgres": "^3.4.9"
   }
 }
