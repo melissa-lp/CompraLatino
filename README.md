@@ -8,11 +8,13 @@ Proyecto de la materia Desarrollo de Software Empresarial (DSE941), Universidad 
 
 ```
 services/
+  gateway/           API Gateway: punto de entrada y enrutamiento a los servicios
   identity/          Registro, login y autorización (JWT)
   catalog/           Consulta de productos (datos de YAuctions)
   orders/            Órdenes y ejecución de compras
   recommendations/   Recomendaciones según historial
   admin/             Métricas y reportes
+  yauctions-mock/    Simulación de la API externa de YAuctions
 frontend/            SPA en React
 docs/                Documentación y diagramas
 ```
@@ -28,15 +30,61 @@ docs/                Documentación y diagramas
 ```bash
 git clone https://github.com/melissa-lp/CompraLatino.git
 cd CompraLatino
-cp .env.example .env   # llenar con las credenciales compartidas por el equipo
 ```
+
+### Variables de entorno
+
+Cada servicio tiene su propio `.env` dentro de su carpeta, para que solo conozca las credenciales que necesita. Para configurar un servicio:
+
+```bash
+cd services/identity
+cp .env.example .env   # llenar con las credenciales compartidas 
+npm install
+npm run test:db        # verifica la conexión a la base de datos
+```
+
+| Servicio | Puerto |
+|---|---|
+| gateway | 3000 |
+| identity | 3001 |
+| catalog | 3002 |
+| orders | 3003 |
+| recommendations | 3004 |
+| admin | 3005 |
+| yauctions-mock | 3006 |
 
 ## Flujo de trabajo
 
-1. Actualizar `main`: `git checkout main && git pull`
-2. Crear rama: `git checkout -b feature/<servicio>-<descripcion>`
-3. Commits en español y en imperativo (ej. `Agrega endpoint de registro de usuario`)
-4. Subir la rama y abrir un Pull Request hacia `main`; otro integrante debe revisarlo antes de fusionar.
+Cada integrante trabaja en su propia rama: `luis`, `rodrigo`, `melissa`, `ronald` y `emilia`.
+
+### Primera vez (crear rama)
+
+```bash
+git checkout main
+git pull
+git checkout -b <nombre>
+git push -u origin <nombre>
+```
+
+### Día a día (trabajar en cada rama)
+
+```bash
+git checkout <nombre>
+git merge main                
+git add .
+git commit -m "mensaje" 
+git push
+```
+
+### Integrar  cambios a `main`
+
+```bash
+git checkout main
+git pull                      
+git merge <nombre>
+git push                
+git checkout <nombre>     
+```
 
 ## Equipo
 
