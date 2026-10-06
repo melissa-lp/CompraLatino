@@ -11,3 +11,6 @@ create table if not exists identity.users (
 );
 
 create unique index if not exists users_email_lower_key on identity.users (lower(email));
+
+-- Cierra la tabla de usuarios a la API automática de Supabase (anon/authenticated)
+alter table identity.users enable row level security;
