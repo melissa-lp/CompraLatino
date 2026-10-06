@@ -16,4 +16,5 @@ export function requireAuth(req, res, next) {
         return res.status(401).json({ error: 'La sesión no es válida o ha expirado'})
     }
     req.user = { id: payload.sub, role: payload.role }
+    next()
 }
