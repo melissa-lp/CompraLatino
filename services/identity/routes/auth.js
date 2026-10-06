@@ -2,6 +2,7 @@ import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import sql from '../db.js'
 import jwt from 'jsonwebtoken'
+import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 
@@ -92,6 +93,32 @@ router.post('/login', async (req, res) => {
         res.status(500).json({
             error: 'No se pudo iniciar sesión.'
 
+        })
+    }
+})
+
+// GET /auth/me
+router.get('/me', requireAuth, async (req, res) => {
+    try {
+        const [user] = await sql`
+        SELECT id, email, full_name, role, created_at
+        FROM identity.users
+        WHERE id = ${req.user.id}
+        `
+        if (!user) {
+            return res.status(404).json({ error: 'Usuario no encontrado' })
+        }
+        res.json({
+            id: user.id,
+            email: user.email,
+            fullName: user.full_name,
+            role: user.role,
+            createdAt: user.created_at
+        })
+    } catch (err) {
+        console.error('Error al obtener el usuario:', err.message)
+        res.status(500).json({
+            error: 'No se pudo obtener el usuario.'
         })
     }
 })
