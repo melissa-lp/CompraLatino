@@ -1,6 +1,9 @@
 import express from 'express'
 import sql from './db.js'
 import authRoutes from './routes/auth.js'
+import { readFileSync } from 'node:fs'
+import { parse } from 'yaml'
+import swaggerui from 'swagger-ui-express'
 
 if (!process.env.JWT_SECRET) {
   console.error('Falta la variable de entorno JWT_SECRET')
@@ -12,6 +15,8 @@ const app = express()
 // Permite leer el cuerpo de las peticiones en formato JSON (registro y login)
 app.use(express.json())
 app.use('/auth', authRoutes)
+const openapiSpec = parse(readFileSync(new URL('./openapi.yaml', import.meta.url), 'utf-8'))
+app.use('/docs', swaggerui.serve, swaggerui.setup(openapiSpec))
 
 app.get('/health', async (req, res) => {
   try {
