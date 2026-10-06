@@ -2,6 +2,11 @@ import express from 'express'
 import sql from './db.js'
 import authRoutes from './routes/auth.js'
 
+if (!process.env.JWT_SECRET) {
+  console.error('Falta la variable de entorno JWT_SECRET')
+  process.exit(1)
+}
+
 const app = express()
 
 // Permite leer el cuerpo de las peticiones en formato JSON (registro y login)
