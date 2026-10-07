@@ -38,3 +38,5 @@ create table if not exists catalog.product_images (
 alter table catalog.categories     enable row level security;
 alter table catalog.product_images enable row level security;
 alter table catalog.products       enable row level security;
+
+alter table catalog.categories add column if not exists image_url text;
