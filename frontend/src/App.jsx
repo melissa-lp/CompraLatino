@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router'
 import { Layout } from './components/Layout.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 import { AdminPage } from './pages/AdminPage.jsx'
+import { ProductsPage } from './pages/ProductsPage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
 import { PlaceholderPage } from './pages/PlaceholderPage.jsx'
 import { RegisterPage } from './pages/RegisterPage.jsx'
@@ -12,7 +13,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<PlaceholderPage title="Inicio" />} />
-        <Route path="productos" element={<PlaceholderPage title="Productos" />} />
+        <Route path="productos" element={<ProductsPage />} />
         <Route path="quienes-somos" element={<PlaceholderPage title="Quiénes somos" />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="registro" element={<RegisterPage />} />
