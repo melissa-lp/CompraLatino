@@ -52,6 +52,19 @@ npm run test:db        # verifica la conexión a la base de datos
 | recommendations | 3004 |
 | admin | 3005 |
 | yauctions-mock | 3006 |
+| frontend (Vite) | 5173 |
+
+### Levantar la app en desarrollo
+
+Cada uno en su propia terminal (los servidores se quedan corriendo):
+
+```bash
+cd services/identity && npm run dev   # 3001
+cd services/gateway  && npm run dev   # 3000
+cd frontend          && npm run dev   # 5173
+```
+
+El frontend solo habla con el gateway (`VITE_API_URL` en `frontend/.env`), nunca directo con un servicio.
 
 ## Flujo de trabajo
 

@@ -1,9 +1,10 @@
 import express from 'express'
+import cors from 'cors'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { requireAuth, requireRole } from './middleware/auth.js'
 
 // Variables sin las que el gateway no puede funcionar
-for (const name of ['JWT_SECRET', 'IDENTITY_URL']) {
+for (const name of ['JWT_SECRET', 'IDENTITY_URL', 'FRONTEND_URL']) {
   if (!process.env[name]) {
     console.error(`Falta la variable de entorno ${name}`)
     process.exit(1)
@@ -12,6 +13,8 @@ for (const name of ['JWT_SECRET', 'IDENTITY_URL']) {
 
 const app = express()
 
+// El navegador solo deja que el frontend (otro origen: puerto 5173) llame al gateway si este lo autoriza
+app.use(cors({ origin: process.env.FRONTEND_URL }))
 
 // Nadie de afuera puede enviar estos headers: solo el gateway los pone tras verificar el token
 app.use((req, res, next) => {
