@@ -61,6 +61,8 @@ Cada uno en su propia terminal (los servidores se quedan corriendo):
 ```bash
 cd services/identity && npm run dev   # 3001
 cd services/gateway  && npm run dev   # 3000
+cd services/catalog  && npm run dev   # 3002
+cd services/yauctions-mock && npm run dev  # 3006
 cd frontend          && npm run dev   # 5173
 ```
 
