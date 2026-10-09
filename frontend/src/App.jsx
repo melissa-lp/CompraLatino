@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router'
 import { Layout } from './components/Layout.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 import { AdminPage } from './pages/AdminPage.jsx'
+import { CartPage } from './pages/CartPage.jsx'
 import { ProductsPage } from './pages/ProductsPage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
 import { PlaceholderPage } from './pages/PlaceholderPage.jsx'
@@ -18,11 +19,13 @@ export default function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="registro" element={<RegisterPage />} />
 
+        {/* Carrito */}
+        <Route path="carrito" element={<CartPage />} />
         <Route
-          path="carrito"
+          path="checkout"
           element={
             <ProtectedRoute>
-              <PlaceholderPage title="Carrito" />
+              <PlaceholderPage title="Finalizar compra" />
             </ProtectedRoute>
           }
         />

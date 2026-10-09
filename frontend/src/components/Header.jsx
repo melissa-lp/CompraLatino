@@ -1,9 +1,11 @@
 import { Link, NavLink } from 'react-router'
 import { useAuth } from '../auth/useAuth.js'
+import { useCart } from '../cart/useCart.js'
 import './Header.css'
 
 export function Header() {
   const { user, logout } = useAuth()
+  const { itemCount } = useCart()
 
   return (
     <header className="header">
@@ -32,8 +34,10 @@ export function Header() {
             <UserIcon />
           </Link>
         )}
-        <Link to="/carrito" className="header__icon" aria-label="Carrito">
+        <Link to="/carrito" className="header__icon header__cart" aria-label={`Carrito (${itemCount} productos)`}>
           <CartIcon />
+          {/* Contador */}
+          {itemCount > 0 && <span className="header__badge">{itemCount > 99 ? '99+' : itemCount}</span>}
         </Link>
       </div>
     </header>

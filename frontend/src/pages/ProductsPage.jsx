@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { apiFetch } from '../api/client.js'
-import { addToCart } from '../cart/cartStorage.js'
+import { useCart } from '../cart/useCart.js'
 import './ProductsPage.css'
 
 const SEARCH_DELAY_MS = 300
@@ -8,6 +8,7 @@ const SEARCH_DELAY_MS = 300
 const priceFormatter = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' })
 
 export function ProductsPage() {
+  const { addItem } = useCart()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -40,11 +41,8 @@ export function ProductsPage() {
   }, [searchTerm])
 
   function handleAddToCart(product) {
-    if (addToCart(product)) {
-      setAddedProductId(product.id)
-    } else {
-      setError('No se pudo guardar el carrito en este navegador')
-    }
+    addItem(product)
+    setAddedProductId(product.id)
   }
 
   return (
