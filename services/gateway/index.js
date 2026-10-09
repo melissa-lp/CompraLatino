@@ -4,7 +4,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 import { requireAuth, requireRole } from './middleware/auth.js'
 
 // Variables necesarias para el gateway
-for (const name of ['JWT_SECRET', 'FRONTEND_URL', 'IDENTITY_URL', 'CATALOG_URL']) {
+for (const name of ['JWT_SECRET', 'FRONTEND_URL', 'IDENTITY_URL', 'CATALOG_URL', 'ORDERS_URL']) {
   if (!process.env[name]) {
     console.error(`Falta la variable de entorno ${name}`)
     process.exit(1)
@@ -16,7 +16,7 @@ const app = express()
 // El navegador solo deja que el frontend llame al gateway si este lo autoriza
 app.use(cors({ origin: process.env.FRONTEND_URL }))
 
-// Nadie de afuera puede enviar estos headers, solo el gateway los pone tras verificar el token
+// Nadie de afuera puede enviar estos headers, el gateway los pone tras verificar el token
 app.use((req, res, next) => {
   delete req.headers['x-user-id']
   delete req.headers['x-user-role']
@@ -53,11 +53,14 @@ function proxyTo(target, pathFilter, pathRewrite) {
 // Reenvío a cada servicio
 app.use(proxyTo(process.env.IDENTITY_URL, '/auth'))
 
-// Catálogo público, cualquiera puede ver los productos, sin iniciar sesión
+// Catálogo público
 app.use(proxyTo(process.env.CATALOG_URL, '/products'))
 
 // Administración del catálogo
 app.use(proxyTo(process.env.CATALOG_URL, '/admin/catalog', { '^/admin/catalog': '/admin' }))
+
+// Órdenes del usuario
+app.use(proxyTo(process.env.ORDERS_URL, '/orders'))
 
 // Si ninguna ruta coincide, el recurso no existe
 app.use((req, res) => {

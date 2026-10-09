@@ -3,6 +3,9 @@ import { Layout } from './components/Layout.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 import { AdminPage } from './pages/AdminPage.jsx'
 import { CartPage } from './pages/CartPage.jsx'
+import { CheckoutPage } from './pages/CheckoutPage.jsx'
+import { OrderPage } from './pages/OrderPage.jsx'
+import { OrdersPage } from './pages/OrdersPage.jsx'
 import { ProductsPage } from './pages/ProductsPage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
 import { PlaceholderPage } from './pages/PlaceholderPage.jsx'
@@ -21,14 +24,12 @@ export default function App() {
 
         {/* Carrito */}
         <Route path="carrito" element={<CartPage />} />
-        <Route
-          path="checkout"
-          element={
-            <ProtectedRoute>
-              <PlaceholderPage title="Finalizar compra" />
-            </ProtectedRoute>
-          }
-        />
+        {/* Páginas que exigen sesión */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="pedidos" element={<OrdersPage />} />
+          <Route path="pedidos/:id" element={<OrderPage />} />
+        </Route>
         <Route
           path="admin"
           element={

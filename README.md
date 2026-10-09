@@ -63,6 +63,7 @@ cd services/identity && npm run dev   # 3001
 cd services/gateway  && npm run dev   # 3000
 cd services/catalog  && npm run dev   # 3002
 cd services/yauctions-mock && npm run dev  # 3006
+cd services/orders  && npm run dev   # 3003
 cd frontend          && npm run dev   # 5173
 ```
 

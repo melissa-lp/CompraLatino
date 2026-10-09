@@ -1,9 +1,9 @@
 import express from 'express'
 import pool from './db.js'
 import adminRoutes from './routes/admin.js'
+import internalRoutes from './routes/internal.js'
 import productRoutes from './routes/products.js'
 
-// Variables sin las que el servicio no puede funcionar
 for (const name of ['DATABASE_URL', 'YAUCTIONS_API_URL']) {
   if (!process.env[name]) {
     console.error(`Falta la variable de entorno ${name}`)
@@ -11,7 +11,6 @@ for (const name of ['DATABASE_URL', 'YAUCTIONS_API_URL']) {
   }
 }
 
-// Sin cors(): el navegador no llama a catalog directamente, todo pasa por el gateway
 const app = express()
 
 app.get('/health', async (req, res) => {
@@ -26,6 +25,7 @@ app.get('/health', async (req, res) => {
 
 app.use(productRoutes)
 app.use(adminRoutes)
+app.use(internalRoutes)
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Ruta no encontrada' })

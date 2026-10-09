@@ -18,6 +18,7 @@ export function Header() {
         <NavLink to="/" end>Inicio</NavLink>
         <NavLink to="/productos">Productos</NavLink>
         <NavLink to="/quienes-somos">Quiénes somos</NavLink>
+        {user && <NavLink to="/pedidos">Mis pedidos</NavLink>}
         {user?.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}
       </nav>
 

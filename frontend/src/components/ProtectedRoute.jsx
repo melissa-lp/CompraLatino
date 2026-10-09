@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from 'react-router'
+import { Navigate, Outlet, useLocation } from 'react-router'
 import { useAuth } from '../auth/useAuth.js'
 
 // Muestra la página solo si hay sesión
@@ -24,5 +24,6 @@ export function ProtectedRoute({ role, children }) {
     )
   }
 
-  return children
+  
+  return children ?? <Outlet />
 }
