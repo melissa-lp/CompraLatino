@@ -159,3 +159,23 @@
   text-align: center;
   color: #6b7280;
 }
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-status {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.admin-error {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "itemId": "YAUC-001",
+    "title": "Auriculares Inalámbricos Sony WH-1000XM5",
+    "description": "Cancelación de ruido líder, importación JP.",
+    "category": "audio",
+    "priceJpy": 48000,
+    "stock": 15,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/eCGC2sC.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-002",
+    "title": "Monitores de Estudio Yamaha HS5",
+    "description": "Par de monitores activos bi-amplificados.",
+    "category": "audio",
+    "priceJpy": 32000,
+    "stock": 4,
+    "condition": "used",
+    "images": [
+      "https://i.imgur.com/B7MktTV.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-003",
+    "title": "Amplificador DAC FiiO K7",
+    "description": "Audio de alta resolución de escritorio.",
+    "category": "audio",
+    "priceJpy": 29500,
+    "stock": 8,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/qIzXoLY.png"
+    ]
+  },
+  {
+    "itemId": "YAUC-004",
+    "title": "Teclado Mecánico HHKB Professional HYBRID",
+    "description": "Layout japonés, switches Topre. Ideal para programadores.",
+    "category": "perifericos",
+    "priceJpy": 35000,
+    "stock": 4,
+    "condition": "used",
+    "images": [
+      "https://i.imgur.com/QLK0vMc.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-005",
+    "title": "Mouse Inalámbrico Logitech G PRO X Superlight",
+    "description": "Edición japonesa, ultra ligero.",
+    "category": "perifericos",
+    "priceJpy": 18500,
+    "stock": 20,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/Xnvsd0U.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-006",
+    "title": "Monitor Curvo Dell UltraSharp 34",
+    "description": "Pantalla WQHD, sin rasguños evidentes.",
+    "category": "perifericos",
+    "priceJpy": 85000,
+    "stock": 1,
+    "condition": "used",
+    "images": [
+      "https://i.imgur.com/BtAxteJ.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-007",
+    "title": "Batería Portátil Anker Prime 27,650mAh",
+    "description": "Power bank con salida de 250W.",
+    "category": "energia",
+    "priceJpy": 24000,
+    "stock": 12,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/8q6eVev.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-008",
+    "title": "Estación de Energía EcoFlow RIVER 2",
+    "description": "Capacidad de 256Wh, carga ultra rápida.",
+    "category": "energia",
+    "priceJpy": 42000,
+    "stock": 3,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/JLujFEs.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-009",
+    "title": "Amazon Echo Show 8 (JP)",
+    "description": "Pantalla inteligente con Alexa en japonés.",
+    "category": "casa-inteligente",
+    "priceJpy": 14980,
+    "stock": 6,
+    "condition": "used",
+    "images": [
+      "https://i.imgur.com/q5Usx6q.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-010",
+    "title": "Kit Philips Hue White & Color Ambiance",
+    "description": "Incluye 3 focos inteligentes y el Hue Bridge.",
+    "category": "casa-inteligente",
+    "priceJpy": 22000,
+    "stock": 9,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/HrJW0BB.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-011",
+    "title": "Nintendo Switch OLED Edición Zelda (JP)",
+    "description": "Consola versión japonesa, región libre. Nueva.",
+    "category": "zona-gaming",
+    "priceJpy": 37980,
+    "stock": 2,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/3Yosuuo.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-012",
+    "title": "Mando DualSense PS5 Edición Final Fantasy XVI",
+    "description": "Control de edición limitada.",
+    "category": "zona-gaming",
+    "priceJpy": 11000,
+    "stock": 5,
+    "condition": "used",
+    "images": [
+      "https://i.imgur.com/FIuDQhk.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-013",
+    "title": "Smartphone Sony Xperia 1 V Libre",
+    "description": "Cámara con sensor Exmor T, sin bloqueo de red.",
+    "category": "celulares",
+    "priceJpy": 165000,
+    "stock": 2,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/RxLXsOR.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-014",
+    "title": "Smartwatch Casio G-Shock G-SQUAD",
+    "description": "Reloj deportivo resistente con monitor cardíaco.",
+    "category": "wearables",
+    "priceJpy": 55000,
+    "stock": 7,
+    "condition": "new",
+    "images": [
+      "https://i.imgur.com/sspzJkG.jpeg"
+    ]
+  },
+  {
+    "itemId": "YAUC-015",
+    "title": "Apple Watch Series 8 (GPS, 41mm)",
+    "description": "Caja de aluminio, incluye correa deportiva negra.",
+    "category": "wearables",
+    "priceJpy": 45000,
+    "stock": 3,
+    "condition": "used",
+    "images": [
+      "https://i.imgur.com/7B2Mqwf.jpeg"
+    ]
+  }
+]

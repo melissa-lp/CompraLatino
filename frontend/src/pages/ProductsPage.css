@@ -136,3 +136,20 @@
   border-radius: 8px;
   color: #4b5563;
 }
+
+.products-error {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.products-grid.is-refreshing {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.btn-add-cart:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

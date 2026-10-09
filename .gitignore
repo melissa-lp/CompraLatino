@@ -146,4 +146,4 @@ vite.config.ts.timestamp-*
 .DS_Store
 
 # Imagenes
-.images/
+/images/
