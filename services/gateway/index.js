@@ -55,12 +55,16 @@ app.use(proxyTo(process.env.IDENTITY_URL, '/auth'))
 
 // Catálogo público
 app.use(proxyTo(process.env.CATALOG_URL, '/products'))
+app.use(proxyTo(process.env.CATALOG_URL, '/categories'))
 
 // Administración del catálogo
 app.use(proxyTo(process.env.CATALOG_URL, '/admin/catalog', { '^/admin/catalog': '/admin' }))
 
 // Órdenes del usuario
 app.use(proxyTo(process.env.ORDERS_URL, '/orders'))
+
+// Tipo de cambio vigente
+app.use(proxyTo(process.env.ORDERS_URL, '/pricing'))
 
 // Si ninguna ruta coincide, el recurso no existe
 app.use((req, res) => {

@@ -20,6 +20,11 @@ function toCents(usd) {
   return Math.round(usd * 100)
 }
 
+// Valores de precios vigentes
+export function getPricingConfig() {
+  return { exchangeRate: EXCHANGE_RATE, serviceFeeUsd: SERVICE_FEE_USD }
+}
+
 // Cotización de una lista de productos
 export async function buildQuote(items) {
   const products = await fetchCatalogProducts(items.map((item) => item.productId))

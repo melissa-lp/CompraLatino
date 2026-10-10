@@ -4,9 +4,17 @@ import pool from '../db.js'
 const router = Router()
 
 const MAX_SEARCH_LENGTH = 100
+const MAX_LIMIT = 100
 
 function escapeLikePattern(text) {
   return text.replace(/[\\%_]/g, (char) => `\\${char}`)
+}
+
+const SORT_OPTIONS = {
+  newest: 'p.created_at desc, p.yauctions_item_id desc',
+  oldest: 'p.created_at asc, p.yauctions_item_id asc',
+  price_asc: 'p.price_jpy asc, p.title',
+  price_desc: 'p.price_jpy desc, p.title'
 }
 
 router.get('/products', async (req, res) => {
@@ -15,11 +23,29 @@ router.get('/products', async (req, res) => {
     return res.status(400).json({ error: `La búsqueda admite como máximo ${MAX_SEARCH_LENGTH} caracteres` })
   }
 
+  const category = typeof req.query.category === 'string' ? req.query.category.trim() : ''
+  const orderBy = Object.hasOwn(SORT_OPTIONS, req.query.sort) ? SORT_OPTIONS[req.query.sort] : SORT_OPTIONS.newest
+
+
   const values = []
   let searchFilter = ''
   if (q !== '') {
     values.push(`%${escapeLikePattern(q)}%`)
-    searchFilter = 'and (p.title ilike $1 or c.name ilike $1)'
+    searchFilter += ` and (p.title ilike $${values.length} or c.name ilike $${values.length})`
+  }
+  if (category !== '') {
+    values.push(category)
+    searchFilter += ` and c.slug = $${values.length}`
+  }
+
+  let limitClause = ''
+  if (req.query.limit !== undefined) {
+    const limit = Number(req.query.limit)
+    if (!Number.isInteger(limit) || limit < 1 || limit > MAX_LIMIT) {
+      return res.status(400).json({ error: `limit debe ser un entero entre 1 y ${MAX_LIMIT}` })
+    }
+    values.push(limit)
+    limitClause = `limit $${values.length}`
   }
 
   const { rows } = await pool.query(
@@ -29,7 +55,8 @@ router.get('/products', async (req, res) => {
      join catalog.categories c on c.id = p.category_id
      left join catalog.product_images i on i.product_id = p.id and i.position = 0
      where p.is_active ${searchFilter}
-     order by p.created_at desc`,
+     order by ${orderBy}
+     ${limitClause}`,
     values
   )
 

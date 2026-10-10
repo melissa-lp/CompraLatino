@@ -1,14 +1,15 @@
 import { Outlet } from 'react-router'
+import { Footer } from './Footer.jsx'
 import { Header } from './Header.jsx'
 
-// Estructura común de todas las páginas />
 export function Layout() {
   return (
-    <>
+    <div className="layout">
       <Header />
-      <main>
+      <main className="layout__main">
         <Outlet />
       </main>
-    </>
+      <Footer />
+    </div>
   )
 }

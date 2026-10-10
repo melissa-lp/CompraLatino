@@ -4,6 +4,7 @@ import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 import { AdminPage } from './pages/AdminPage.jsx'
 import { CartPage } from './pages/CartPage.jsx'
 import { CheckoutPage } from './pages/CheckoutPage.jsx'
+import { HomePage } from './pages/HomePage.jsx'
 import { OrderPage } from './pages/OrderPage.jsx'
 import { OrdersPage } from './pages/OrdersPage.jsx'
 import { ProductsPage } from './pages/ProductsPage.jsx'
@@ -16,9 +17,10 @@ export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={<PlaceholderPage title="Inicio" />} />
+        <Route index element={<HomePage />} />
         <Route path="productos" element={<ProductsPage />} />
         <Route path="quienes-somos" element={<PlaceholderPage title="Quiénes somos" />} />
+        <Route path="privacidad" element={<PlaceholderPage title="Política de privacidad" />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="registro" element={<RegisterPage />} />
 

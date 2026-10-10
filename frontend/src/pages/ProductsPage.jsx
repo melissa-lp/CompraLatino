@@ -1,28 +1,45 @@
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router'
 import { apiFetch } from '../api/client.js'
-import { useCart } from '../cart/useCart.js'
+import { useCategories } from '../catalog/useCategories.js'
+import { Breadcrumb } from '../components/Breadcrumb.jsx'
+import { ProductCard } from '../components/ProductCard.jsx'
 import './ProductsPage.css'
 
 const SEARCH_DELAY_MS = 300
 
-const priceFormatter = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' })
+const SORT_LABELS = {
+  newest: 'Más recientes',
+  oldest: 'Más antiguos',
+  price_asc: 'Precio: menor a mayor',
+  price_desc: 'Precio: mayor a menor'
+}
+const DEFAULT_SORT = 'newest'
 
 export function ProductsPage() {
-  const { addItem } = useCart()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const categorySlug = searchParams.get('categoria') ?? ''
+  const sort = Object.hasOwn(SORT_LABELS, searchParams.get('orden')) ? searchParams.get('orden') : DEFAULT_SORT
+
+  const { categories } = useCategories()
+
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-  const [addedProductId, setAddedProductId] = useState(null)
+
+  const category = categories.find((c) => c.slug === categorySlug)
 
   useEffect(() => {
     let cancelled = false
+    const delay = searchTerm === '' ? 0 : SEARCH_DELAY_MS
 
     const timer = setTimeout(() => {
       setLoading(true)
       setError('')
-      // encodeURIComponent: caracteres como & o # en la búsqueda no rompen la URL
-      apiFetch(`/products?q=${encodeURIComponent(searchTerm)}`)
+      const params = new URLSearchParams({ q: searchTerm, sort })
+      if (categorySlug) params.set('category', categorySlug)
+      apiFetch(`/products?${params}`)
         .then((data) => {
           if (!cancelled) setProducts(data)
         })
@@ -32,37 +49,70 @@ export function ProductsPage() {
         .finally(() => {
           if (!cancelled) setLoading(false)
         })
-    }, SEARCH_DELAY_MS)
+    }, delay)
 
     return () => {
       cancelled = true
       clearTimeout(timer)
     }
-  }, [searchTerm])
+  }, [searchTerm, categorySlug, sort])
 
-  function handleAddToCart(product) {
-    addItem(product)
-    setAddedProductId(product.id)
+  function updateFilter(name, value, defaultValue = '') {
+    const next = new URLSearchParams(searchParams)
+    if (value === defaultValue) next.delete(name)
+    else next.set(name, value)
+    setSearchParams(next, { replace: true })
   }
 
   return (
     <section className="page products-page">
-      <header className="products-header">
-        <h1>Catálogo de Productos</h1>
-        <p>Artículos importados a través de YAuctions.</p>
+      <Breadcrumb
+        items={[
+          { label: 'Inicio', to: '/' },
+          { label: 'Productos', to: '/productos' },
+          ...(category ? [{ label: category.name, to: `/productos?categoria=${category.slug}` }] : [])
+        ]}
+      />
 
-        <div className="search-form">
-          <input
-            type="search"
-            placeholder="Buscar por nombre o categoría"
-            aria-label="Buscar productos"
-            maxLength={100}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-        </div>
+      <header className="products-header">
+        <h1>{category ? category.name : 'Todos los productos'}</h1>
+        <p>Artículos importados a través de YAuctions.</p>
       </header>
+
+      <div className="filters" role="search">
+        <input
+          type="search"
+          placeholder="Buscar por nombre"
+          aria-label="Buscar productos"
+          maxLength={100}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input filters__search"
+        />
+
+        <label className="filters__field">
+          <span>Categoría</span>
+          <select value={categorySlug} onChange={(e) => updateFilter('categoria', e.target.value)}>
+            <option value="">Todas</option>
+            {categories.map((c) => (
+              <option key={c.slug} value={c.slug}>{c.name} ({c.productCount})</option>
+            ))}
+          </select>
+        </label>
+
+        <label className="filters__field">
+          <span>Ordenar por</span>
+          <select value={sort} onChange={(e) => updateFilter('orden', e.target.value, DEFAULT_SORT)}>
+            {Object.entries(SORT_LABELS).map(([value, label]) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <p className="filters__count" aria-live="polite">
+        {!loading && !error && `${products.length} ${products.length === 1 ? 'producto' : 'productos'}`}
+      </p>
 
       {error && <p className="products-error" role="alert">{error}</p>}
 
@@ -71,39 +121,14 @@ export function ProductsPage() {
       {!loading && !error && products.length === 0 && (
         <div className="no-results">
           <h3>No se encontraron productos</h3>
-          <p>Intenta con otra palabra.</p>
+          <p>Prueba con otra palabra o con otra categoría.</p>
         </div>
       )}
 
       {products.length > 0 && (
         <div className={`products-grid ${loading ? 'is-refreshing' : ''}`}>
           {products.map((product) => (
-            <article key={product.id} className="product-card">
-              <div className="product-image-container">
-                <img src={product.imageUrl} alt={product.title} loading="lazy" />
-                <span className="product-condition">
-                  {product.condition === 'new' ? 'Nuevo' : 'Usado'}
-                </span>
-              </div>
-              <div className="product-info">
-                <span className="product-category">{product.categoryName}</span>
-                <h2 className="product-title">{product.title}</h2>
-                <p className="product-price">{priceFormatter.format(product.priceJpy)}</p>
-                <p className="product-stock">Disponible: {product.stock} uds.</p>
-
-                <button
-                  className="btn-add-cart"
-                  onClick={() => handleAddToCart(product)}
-                  disabled={product.stock === 0}
-                >
-                  {product.stock === 0
-                    ? 'Agotado'
-                    : addedProductId === product.id
-                      ? 'Agregado ✓'
-                      : 'Agregar al carrito'}
-                </button>
-              </div>
-            </article>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       )}

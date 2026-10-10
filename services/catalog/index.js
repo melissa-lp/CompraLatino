@@ -1,6 +1,7 @@
 import express from 'express'
 import pool from './db.js'
 import adminRoutes from './routes/admin.js'
+import categoryRoutes from './routes/categories.js'
 import internalRoutes from './routes/internal.js'
 import productRoutes from './routes/products.js'
 
@@ -24,6 +25,7 @@ app.get('/health', async (req, res) => {
 })
 
 app.use(productRoutes)
+app.use(categoryRoutes)
 app.use(adminRoutes)
 app.use(internalRoutes)
 

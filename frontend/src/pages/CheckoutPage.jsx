@@ -106,10 +106,6 @@ export function CheckoutPage() {
             <textarea name="address" required rows={3} maxLength={250} autoComplete="street-address" value={shipping.address} onChange={updateField} />
           </label>
 
-          <p className="orders__note">
-            Pago simulado (proyecto académico): al confirmar, CompraLatino compra los productos en YAuctions.
-          </p>
-
           {submitError && <p className="orders__error" role="alert">{submitError}</p>}
 
           <button type="submit" className="button" disabled={isSubmitting || isQuoting || !quote}>

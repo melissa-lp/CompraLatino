@@ -2,6 +2,7 @@ import express from 'express'
 import sql from './db.js'
 import { OrderError } from './lib/errors.js'
 import orderRoutes from './routes/orders.js'
+import pricingRoutes from './routes/pricing.js'
 
 // Variables sin las que el servicio no puede funcionar
 for (const name of ['DATABASE_URL', 'CATALOG_URL', 'YAUCTIONS_API_URL', 'EXCHANGE_RATE_USD_PER_JPY', 'SERVICE_FEE_USD']) {
@@ -29,6 +30,7 @@ app.get('/health', async (req, res) => {
   }
 })
 
+app.use(pricingRoutes)
 app.use(orderRoutes)
 
 app.use((req, res) => {
