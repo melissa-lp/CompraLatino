@@ -1,0 +1,171 @@
+/* Encabezado con el mismo degradado del Home */
+.about-hero {
+  padding: 96px 16px;
+  background: linear-gradient(135deg, #6f8fae 0%, #8aa6c1 45%, #a9c8dc 100%);
+  color: #ffffff;
+  text-align: center;
+}
+
+.about-hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.about-hero p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.about-section {
+  max-width: 960px;
+  margin: 80px auto 0;
+  padding: 0 32px;
+}
+
+.about-section h2 {
+  margin: 0 0 24px;
+  font-size: 2rem;
+}
+
+.about-story p {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+/* Misión y visión */
+.about-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.about-card {
+  padding: 32px;
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.about-card h2 {
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+.about-card p {
+  margin: 0;
+  line-height: 1.6;
+  color: #374151;
+}
+
+/* Tabla comparativa */
+.about-table-wrapper {
+  overflow-x: auto;
+}
+
+.about-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.about-table th,
+.about-table td {
+  padding: 16px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+  line-height: 1.5;
+}
+
+.about-table thead th {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.about-table tbody th {
+  white-space: nowrap;
+}
+
+.about-table td {
+  color: var(--color-text-muted);
+}
+
+.about-table .about-table__ours {
+  color: var(--color-text);
+  font-weight: 500;
+  background: var(--color-surface);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Equipo */
+.about-team {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-team__member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.about-team__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6f8fae, #a9c8dc);
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.about-cta {
+  text-align: center;
+}
+
+.about-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.about-cta .button {
+  text-decoration: none;
+}
+
+.about-cta__secondary {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  .about-section {
+    margin-top: 56px;
+    padding: 0 16px;
+  }
+
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
+}

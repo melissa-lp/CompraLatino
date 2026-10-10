@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router'
 import { Layout } from './components/Layout.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute.jsx'
+import { AboutPage } from './pages/AboutPage.jsx'
 import { AdminPage } from './pages/AdminPage.jsx'
 import { CartPage } from './pages/CartPage.jsx'
 import { CheckoutPage } from './pages/CheckoutPage.jsx'
@@ -19,7 +20,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="productos" element={<ProductsPage />} />
-        <Route path="quienes-somos" element={<PlaceholderPage title="Quiénes somos" />} />
+        <Route path="quienes-somos" element={<AboutPage />} />
         <Route path="privacidad" element={<PlaceholderPage title="Política de privacidad" />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="registro" element={<RegisterPage />} />
