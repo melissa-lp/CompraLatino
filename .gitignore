@@ -147,3 +147,10 @@ vite.config.ts.timestamp-*
 
 # Imagenes
 /images/
+
+# Archivos locales de Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

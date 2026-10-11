@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { apiFetch } from '../api/client.js'
 import { ProductCard } from '../components/ProductCard.jsx'
 import './HomePage.css'
+import { RecommendedProducts } from '../components/RecommendedProducts.jsx'
 
 const FEATURED_COUNT = 4
 
@@ -42,7 +43,17 @@ export function HomePage() {
           <Link to="/productos" className="button home-section__link">Ver todos</Link>
         </div>
         <FeaturedProducts />
-      </section>
+          </section>
+
+          <section className="home-section">
+              <div className="home-section__header">
+                  <h2>Recomendado para ti</h2>
+                  <Link to="/productos" className="button home-section__link">
+                      Explorar productos
+                  </Link>
+              </div>
+              <RecommendedProducts />
+          </section>
 
       <section className="home-section">
         <h2>Cómo funciona</h2>

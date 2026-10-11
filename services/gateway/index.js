@@ -4,7 +4,16 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 import { requireAuth, requireRole } from './middleware/auth.js'
 
 // Variables necesarias para el gateway
-for (const name of ['JWT_SECRET', 'FRONTEND_URL', 'IDENTITY_URL', 'CATALOG_URL', 'ORDERS_URL']) {
+for (const name of [
+    'JWT_SECRET',
+    'FRONTEND_URL',
+    'IDENTITY_URL',
+    'CATALOG_URL',
+    'ORDERS_URL',
+    'RECOMMENDATIONS_URL'
+])
+
+{
   if (!process.env[name]) {
     console.error(`Falta la variable de entorno ${name}`)
     process.exit(1)
@@ -30,7 +39,11 @@ app.get('/health', (req, res) => {
 
 // Rutas que exigen sesión
 app.use('/orders', requireAuth)
-app.use('/recommendations', requireAuth)
+
+// Solo las recomendaciones personales requieren autenticación
+app.use('/recommendations/me', requireAuth)
+
+// Administración
 app.use('/admin', requireAuth, requireRole('admin'))
 
 // Crea un proxy hacia un servicio
@@ -62,6 +75,9 @@ app.use(proxyTo(process.env.CATALOG_URL, '/admin/catalog', { '^/admin/catalog': 
 
 // Órdenes del usuario
 app.use(proxyTo(process.env.ORDERS_URL, '/orders'))
+
+// Recomendaciones de productos
+app.use(proxyTo(process.env.RECOMMENDATIONS_URL,'/recommendations'))
 
 // Tipo de cambio vigente
 app.use(proxyTo(process.env.ORDERS_URL, '/pricing'))
