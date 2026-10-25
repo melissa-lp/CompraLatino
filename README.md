@@ -51,6 +51,7 @@ cd services/gateway && npm install && cd ../..
 cd services/catalog && npm install && cd ../..
 cd services/orders && npm install && cd ../..
 cd services/yauctions-mock && npm install && cd ../..
+cd services/recommendations && npm install && cd ../..
 cd frontend && npm install && cd ..
 ```
 
@@ -66,6 +67,7 @@ cp services/gateway/.env.example services/gateway/.env
 cp services/catalog/.env.example services/catalog/.env
 cp services/orders/.env.example services/orders/.env
 cp services/yauctions-mock/.env.example services/yauctions-mock/.env
+cp services/recommendations/.env.example services/recommendations/.env
 cp frontend/.env.example frontend/.env
 ```
 
@@ -77,6 +79,7 @@ Solo se debe completar **dos secretos**, que el equipo comparte:
 | `services/gateway` | `JWT_SECRET` (**el mismo** que identity: con él se verifican los tokens) |
 | `services/catalog` | `DATABASE_URL` |
 | `services/orders` | `DATABASE_URL` |
+| `services/recommendations` | `DATABASE_URL` y `JWT_SECRET` (el mismo de identity y gateway) |
 | `services/yauctions-mock` y `frontend` | Nada |
 
 Todos usan la misma `DATABASE_URL`. Los `.env` están en `.gitignore`
@@ -96,6 +99,7 @@ cd services/yauctions-mock && npm run dev   # 3006
 cd services/catalog        && npm run dev   # 3002
 cd services/identity       && npm run dev   # 3001
 cd services/orders         && npm run dev   # 3003
+cd services/recommendations && npm run dev  # 3004
 cd services/gateway        && npm run dev   # 3000
 cd frontend                && npm run dev   # 5173 → abrir http://localhost:5173
 ```
