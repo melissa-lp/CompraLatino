@@ -1,0 +1,35 @@
+
+> compralatino-tests@1.0.0 test:unit
+> node --test "unit/*.test.js"
+
+▶ Cálculo de precios y cotización
+  ✔ [TC-PRC-01] Expone el tipo de cambio y el cargo por servicio configurados (0.571417ms)
+  ✔ [TC-PRC-02] Calcula subtotal en yenes, subtotal en dólares, cargo y total (8.654625ms)
+  ✔ [TC-PRC-03] Redondea al centavo (1 yen = $0.0067 → $0.01) (0.193583ms)
+  ✔ [TC-PRC-04] Rechaza productos inactivos o inexistentes con 409 (0.372917ms)
+  ✔ [TC-PRC-05] Rechaza cantidades mayores al stock indicando cuántas quedan (0.285042ms)
+  ✔ [TC-PRC-06] Responde 503 si el catálogo no responde y 502 si responde con error (0.179167ms)
+✔ Cálculo de precios y cotización (10.673417ms)
+▶ Validación del carrito (parseItems)
+  ✔ [TC-VAL-01] Rechaza un carrito vacío o que no es una lista (0.411083ms)
+  ✔ [TC-VAL-02] Rechaza ids de producto que no son UUID (0.0955ms)
+  ✔ [TC-VAL-03] Rechaza cantidades fuera de 1–99 o no enteras (0.142ms)
+  ✔ [TC-VAL-04] Acepta cantidades en los límites (1 y 99) (0.319375ms)
+  ✔ [TC-VAL-05] Suma las cantidades de un mismo producto repetido (0.059916ms)
+  ✔ [TC-VAL-06] Rechaza si la suma de un producto repetido supera 99 (0.051708ms)
+  ✔ [TC-VAL-07] Rechaza más de 50 productos distintos por orden (0.120166ms)
+✔ Validación del carrito (parseItems) (1.64175ms)
+▶ Validación de la dirección de envío (parseShipping)
+  ✔ [TC-VAL-08] Acepta una dirección completa y válida (0.123958ms)
+  ✔ [TC-VAL-09] Rechaza cada campo faltante o vacío indicando cuál es (0.103583ms)
+  ✔ [TC-VAL-10] Valida el formato del teléfono (0.110792ms)
+  ✔ [TC-VAL-11] Recorta espacios y respeta los largos máximos (0.056ms)
+✔ Validación de la dirección de envío (parseShipping) (0.487083ms)
+ℹ tests 17
+ℹ suites 3
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 48.289

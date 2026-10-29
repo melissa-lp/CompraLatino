@@ -1,0 +1,12 @@
+{
+  "name": "compralatino-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pruebas de QA de CompraLatino (Fase 4). Sin dependencias: usa el ejecutor de pruebas integrado de Node.",
+  "type": "module",
+  "scripts": {
+    "test:unit": "node --test \"unit/*.test.js\"",
+    "test:integration": "node --env-file-if-exists=.env --test --test-concurrency=1 \"integration/*.test.js\"",
+    "test": "npm run test:unit && npm run test:integration"
+  }
+}

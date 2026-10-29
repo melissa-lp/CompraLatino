@@ -1,0 +1,211 @@
+
+> compralatino-tests@1.0.0 test:integration
+> node --env-file-if-exists=.env --test --test-concurrency=1 "integration/*.test.js"
+
+▶ Administración
+  ✔ [TC-ADM-01] Un admin puede consultar las métricas del catálogo (1066.718292ms)
+  ✔ [TC-ADM-02] Las métricas coinciden con lo que muestra el catálogo público (330.237959ms)
+  ﹣ [TC-ADM-03] La sincronización con YAuctions responde con un resumen y deja productos en el catálogo (0.266ms) # Pon QA_RUN_SYNC=1 para ejecutarla (modifica el catálogo)
+✔ Administración (4312.701ms)
+▶ Identidad: registro, login y sesión
+  ✔ [TC-AUT-01] Registro válido crea la cuenta con rol customer y sin exponer la contraseña (401.554958ms)
+  ✔ [TC-AUT-02] El correo se guarda en minúsculas y sin espacios (234.358708ms)
+  ✔ [TC-AUT-03] No permite registrar dos veces el mismo correo (sin distinguir mayúsculas) (240.572042ms)
+  ✔ [TC-AUT-04] Rechaza datos de registro inválidos con 400 y un mensaje claro (10.116ms)
+  ✔ [TC-AUT-05] Un registro sin cuerpo responde 400, no un error del servidor (0.886083ms)
+  ✔ [TC-AUT-06] Login correcto devuelve token y usuario (el correo se normaliza) (256.84725ms)
+  ✔ [TC-AUT-07] Contraseña incorrecta responde 401 (211.99775ms)
+  ✔ [TC-AUT-08] Correo inexistente y contraseña incorrecta dan el mismo mensaje (no revela qué cuentas existen) (347.607667ms)
+  ✔ [TC-AUT-09] Login con campos vacíos o de tipo incorrecto responde 400 (5.022375ms)
+  ✔ [TC-AUT-10] Un intento de inyección SQL en el login no inicia sesión ni provoca error 500 (783.434375ms)
+  ✔ [TC-AUT-11] El token contiene solo id y rol, y tiene fecha de expiración (0.234792ms)
+  ✔ [TC-AUT-12] GET /auth/me devuelve el perfil del usuario autenticado (300.15125ms)
+✔ Identidad: registro, login y sesión (2813.407291ms)
+▶ Catálogo: listado, búsqueda, filtros y categorías
+  ✔ [TC-CAT-01] GET /products devuelve productos con los campos esperados (1.363625ms)
+  ✔ [TC-CAT-02] La búsqueda por texto solo devuelve coincidencias en título o categoría (142.900417ms)
+  ✔ [TC-CAT-03] Una búsqueda sin coincidencias devuelve una lista vacía (no un error) (161.284959ms)
+  ✔ [TC-CAT-04] El filtro por categoría solo devuelve productos de esa categoría (273.885958ms)
+  ✔ [TC-CAT-05] Ordena por precio ascendente y descendente (277.07ms)
+  ✔ [TC-CAT-06] El parámetro limit acota los resultados y rechaza valores inválidos (147.815792ms)
+  ✔ [TC-CAT-07] Una búsqueda de más de 100 caracteres responde 400 (y 100 sí se acepta) (141.173792ms)
+  ✔ [TC-CAT-08] Los comodines % y _ se buscan como texto literal, no como patrón (298.895375ms)
+  ✔ [TC-CAT-09] GET /categories lista las categorías con su cantidad de productos (159.800916ms)
+  ✔ [TC-CAT-10] La suma de productos por categoría coincide con el total del catálogo (142.778666ms)
+  ✔ [TC-CAT-11] El listado responde en menos de 3 segundos (144.048542ms)
+  ✔ [TC-CAT-12] Una ruta inexistente responde 404 en JSON (2.564375ms)
+✔ Catálogo: listado, búsqueda, filtros y categorías (2076.518125ms)
+▶ Estado de los servicios (/health)
+  ✔ [TC-HLT-01] El servicio gateway responde «ok» (19.15875ms)
+  ✔ [TC-HLT-02] El servicio identity responde «ok» y está conectado a la base de datos (144.362708ms)
+  ✔ [TC-HLT-03] El servicio catalog responde «ok» y está conectado a la base de datos (138.746875ms)
+  ✔ [TC-HLT-04] El servicio orders responde «ok» y está conectado a la base de datos (930.8465ms)
+  ✔ [TC-HLT-05] El servicio recommendations responde «ok» y está conectado a la base de datos (942.123792ms)
+  ✔ [TC-HLT-06] El servicio yauctions-mock responde «ok» (9.20375ms)
+✔ Estado de los servicios (/health) (2185.771375ms)
+▶ Órdenes: cotización, compra, historial y recomendaciones
+  ✔ [TC-ORD-01] GET /pricing devuelve el tipo de cambio y el cargo por servicio (3.98ms)
+  ✔ [TC-ORD-02] La cotización calcula subtotal, cargo y total de forma coherente (177.961375ms)
+  ✔ [TC-ORD-03] Un producto repetido en el carrito se une en una sola línea (162.658625ms)
+  ✔ [TC-ORD-04] La cotización rechaza carritos vacíos, ids inválidos y cantidades fuera de rango (400) (24.957584ms)
+  ✔ [TC-ORD-05] Un producto inexistente en el carrito se rechaza con 409 (139.254ms)
+  ✔ [TC-ORD-06] Pedir más unidades que el stock se rechaza con 409 e indica cuántas quedan (141.13325ms)
+  ✔ [TC-ORD-07] Crear una orden con dirección incompleta o teléfono inválido responde 400 (317.946916ms)
+  ✔ [TC-ORD-08] Compra exitosa: la orden queda «purchased» con id de YAuctions e historial de estados (4351.83275ms)
+  ✔ [TC-ORD-09] El historial de compras lista la orden creada con su total y unidades (149.109834ms)
+  ✔ [TC-ORD-10] Un usuario nuevo tiene el historial vacío (146.462875ms)
+  ✔ [TC-ORD-11] Se puede ver el detalle de una orden propia, y una ajena responde 404 (608.809042ms)
+  ✔ [TC-ORD-12] Ids de orden mal formados o inexistentes responden 404 (153.838583ms)
+  ✔ [TC-ORD-13] Tras una compra, Recomendaciones registra el historial y personaliza sin repetir lo comprado (569.555709ms)
+  ✔ [TC-ORD-14] Un JSON malformado en /orders responde 400 con un mensaje claro (5.266ms)
+  ✖ [TC-ORD-15] Un cuerpo mayor a 100 KB se rechaza con 413 (no con 500) (5.0435ms)
+✖ Órdenes: cotización, compra, historial y recomendaciones (7921.872416ms)
+▶ Recomendaciones
+  ✔ [TC-REC-01] Los productos populares son como máximo 10 y vienen ordenados por ventas (150.32575ms)
+  ✔ [TC-REC-02] Los productos relacionados son de la misma categoría, con stock y sin incluir el original (455.577625ms)
+  ✔ [TC-REC-03] Relacionados con id inválido responde 400 y con id inexistente 404 (146.0305ms)
+  ✔ [TC-REC-04] Las recomendaciones personales exigen iniciar sesión (401 sin token) (1.951708ms)
+  ✔ [TC-REC-05] Un usuario sin compras recibe una lista vacía indicando que no tiene historial (147.202084ms)
+  ✔ [TC-REC-06] El servicio rechaza eventos de compra incompletos (consulta directa al servicio) (10.541125ms)
+✔ Recomendaciones (1868.675917ms)
+▶ Autenticación y autorización
+  ✔ [TC-SEC-01] Las rutas protegidas responden 401 sin token (5.351083ms)
+  ✔ [TC-SEC-02] Un token con la firma alterada es rechazado (1.189959ms)
+  ✔ [TC-SEC-03] Un token sin firma (alg: none) que se declara admin es rechazado (1.243542ms)
+  ✔ [TC-SEC-04] Un token firmado con otra clave que se declara admin es rechazado (0.576334ms)
+  ✔ [TC-SEC-05] Un token expirado es rechazado (requiere JWT_SECRET en tests/.env) (0.974584ms)
+  ✔ [TC-SEC-06] Un cliente no puede usar rutas de administración (403) (0.662875ms)
+  ✔ [TC-SEC-07] Los encabezados x-user-id / x-user-role enviados desde afuera no otorgan acceso (1.358583ms)
+✔ Autenticación y autorización (441.893541ms)
+▶ Aislamiento de endpoints internos y entradas maliciosas
+  ✔ [TC-SEC-08] Los endpoints internos entre servicios no se pueden alcanzar desde el gateway (1.208625ms)
+  ✔ [TC-SEC-09] Intentos de inyección SQL en la búsqueda no rompen el catálogo (838.581042ms)
+  ✔ [TC-SEC-10] Un nombre con HTML se guarda como texto y la API responde JSON (no HTML) (219.846ms)
+  ✔ [TC-SEC-11] CORS no se abre a orígenes desconocidos (292.078875ms)
+  ✖ [TC-SEC-12] Un JSON malformado responde 400 sin filtrar trazas internas (stack trace) (6.063375ms)
+  ✔ [TC-SEC-13] Un cuerpo demasiado grande se rechaza con 413 (5.261833ms)
+✖ Aislamiento de endpoints internos y entradas maliciosas (1363.911333ms)
+▶ Endurecimiento (hardening) — pueden revelar incidencias
+  ✖ [TC-SEC-14] Limita los intentos de login fallidos (fuerza bruta): debe aparecer un 429 (3610.503833ms)
+  ✖ [TC-SEC-15] No expone el encabezado X-Powered-By (oculta que usa Express) (1.105625ms)
+  ✖ [TC-SEC-16] Envía encabezados de seguridad básicos (X-Content-Type-Options) (155.332458ms)
+  ✖ [TC-SEC-17] Observación: las estadísticas de recomendaciones no deberían ser públicas (144.592834ms)
+✖ Endurecimiento (hardening) — pueden revelar incidencias (3913.3695ms)
+▶ API de YAuctions (mock): contrato y errores
+  ✔ [TC-MCK-01] GET /items lista productos con id, título, precio y stock (0.778833ms)
+  ✔ [TC-MCK-02] GET /items/:id devuelve el detalle, y un id inexistente responde 404 (9.5325ms)
+  ✔ [TC-MCK-03] POST /purchases rechaza cuerpos inválidos con 400 (10.839042ms)
+  ✔ [TC-MCK-04] Comprar un producto que no existe en YAuctions responde 404 (1004.725291ms)
+  ✔ [TC-MCK-05] Comprar más unidades que el stock responde 409 y no descuenta nada (1007.341417ms)
+✔ API de YAuctions (mock): contrato y errores (3063.207125ms)
+ℹ tests 76
+ℹ suites 10
+ℹ pass 69
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 30393.275042
+
+✖ failing tests:
+
+test at integration/orders.test.js:186:3
+✖ [TC-ORD-15] Un cuerpo mayor a 100 KB se rechaza con 413 (no con 500) (5.0435ms)
+  AssertionError [ERR_ASSERTION]: → 500 {"error":"Ocurrió un error al procesar la orden"}
+  
+  500 !== 413
+  
+      at TestContext.<anonymous> (file:///Users/vanina/Documents/CompraLatino/tests/integration/orders.test.js:189:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 500,
+    expected: 413,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at integration/security.test.js:137:3
+✖ [TC-SEC-12] Un JSON malformado responde 400 sin filtrar trazas internas (stack trace) (6.063375ms)
+  AssertionError [ERR_ASSERTION]: la respuesta no debe mostrar rutas de archivos ni la pila de errores
+      at TestContext.<anonymous> (file:///Users/vanina/Documents/CompraLatino/tests/integration/security.test.js:140:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at integration/security.test.js:154:3
+✖ [TC-SEC-14] Limita los intentos de login fallidos (fuerza bruta): debe aparecer un 429 (3610.503833ms)
+  AssertionError [ERR_ASSERTION]: 15 intentos fallidos seguidos y ninguno fue bloqueado: 401
+      at TestContext.<anonymous> (file:///Users/vanina/Documents/CompraLatino/tests/integration/security.test.js:161:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1516:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at integration/security.test.js:164:3
+✖ [TC-SEC-15] No expone el encabezado X-Powered-By (oculta que usa Express) (1.105625ms)
+  AssertionError [ERR_ASSERTION]: /health expone X-Powered-By: Express
+  
+  'Express' !== null
+  
+      at TestContext.<anonymous> (file:///Users/vanina/Documents/CompraLatino/tests/integration/security.test.js:167:14)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'Express',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at integration/security.test.js:171:3
+✖ [TC-SEC-16] Envía encabezados de seguridad básicos (X-Content-Type-Options) (155.332458ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'nosniff'
+  
+      at TestContext.<anonymous> (file:///Users/vanina/Documents/CompraLatino/tests/integration/security.test.js:173:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'nosniff',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at integration/security.test.js:176:3
+✖ [TC-SEC-17] Observación: las estadísticas de recomendaciones no deberían ser públicas (144.592834ms)
+  AssertionError [ERR_ASSERTION]: GET /recommendations/stats respondió 200 sin autenticación y expone: {"status":"ok","stats":{"total_purchases":1,"total_users":1,"total_products":1,"last_purchase":"2026-10-26T04:15:03.475Z
+      at TestContext.<anonymous> (file:///Users/vanina/Documents/CompraLatino/tests/integration/security.test.js:179:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
